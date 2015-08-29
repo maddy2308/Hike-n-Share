@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script src="../node_modules/angular/angular.min.js"></script>
+<script src="loadFbSdk.js"></script>
+<script src="app.login.module.js"></script>
+<script src="app.bundle.module.js"></script>
+<script src="angular.services/FacebookService.js"></script>
+<script src="angular.controllers/LoginController.js"></script>
+
+    <div ng-app="loginModule" ng-controller="LoginController as loginCtrl">
+        <button ng-click="loginCtrl.login()">Login</button>
+    </div>
+
+    <div
+        class="fb-like"
+        data-share="true"
+        data-width="450"
+        data-show-faces="true">
+    </div>
+
+</body>
+</html>
