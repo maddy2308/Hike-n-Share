@@ -6,16 +6,36 @@
 </head>
 <body>
 
-<script src="../node_modules/angular/angular.min.js"></script>
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="../node_modules/sweetalert/dist/sweetalert.css">
+<link rel="stylesheet" href="css/cardLayout.css"/>
+<link rel="stylesheet" href="../node_modules/stroll/stroll.min.js"/>
+
+<script src="https://code.angularjs.org/1.4.3/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-sanitize.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
+<script src="../node_modules/stroll/stroll.js"></script>
+
 <script src="loadFbSdk.js"></script>
 <script src="app.login.module.js"></script>
 <script src="app.bundle.module.js"></script>
-<script src="angular.services/FacebookService.js"></script>
-<script src="angular.controllers/LoginController.js"></script>
+<script src="app.trail.module.js"></script>
 
-    <div ng-app="loginModule" ng-controller="LoginController as loginCtrl">
-        <button ng-click="loginCtrl.login()">Login</button>
-    </div>
+<script src="angular.services/FacebookService.js"></script>
+<script src="angular.services/TrailClientService.js"></script>
+
+<script src="angular.controllers/LoginController.js"></script>
+<script src="angular.controllers/api.TrailFormController.js"></script>
+
+<script src="angular.directives/fallBackSrc.js"></script>
+<script src="angular.directives/onFinishRender.js"></script>
+
+
+    <!--
+    <div ng-app="loginModule" ng-controller="LoginController as loginCtrl" />
+
 
     <div
         class="fb-like"
@@ -23,6 +43,36 @@
         data-width="450"
         data-show-faces="true">
     </div>
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+
+-->
+
+<div ng-app="TrailModule" ng-controller="TrailFormController as trailCtrl">
+    <!--<input type="button" ng-click="trailCtrl.getTrailData()" value="Get Data">-->
+
+    <div id="trail-list" ng-repeat="trail in trailCtrl.trailData" on-finish-render >
+        <div  class="card" ng-repeat="activity in trail.activities">
+            <div class="image">
+                <img ng-src="{{activity.thumbnail}}" onerror="this.src='images/no_image_available.png'">
+                <span class="title">{{activity.name}}</span>
+            </div>
+            <div class="content">
+                <p ng-bind-html="trailCtrl.decodeHtmlContent(activity.description)"></p>
+                <span><a href='#'>Share</a></span>
+            </div>
+            <div class="action">
+                <a class="col-xs-7" href='#'>Learn More</a>
+                <a class="col-xs-offset-1 col-xs-2" href='#'>{{activity.rating}}/5.0</a>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
